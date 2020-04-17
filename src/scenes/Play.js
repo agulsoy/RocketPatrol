@@ -14,6 +14,12 @@ class Play extends Phaser.Scene {
         //place tile sprite
         this.Starryback = this.add.tileSprite(0, 0, 640, 480, 'Starryback').setOrigin(0, 0);
         console.log(this);
+        
+        //add background music
+         this.bgm = this.sound.add('backgroundMusic');
+
+        //play music continuously
+         this.bgm.play();
 
         //white rectangle borders
         this.add.rectangle(5, 5, 630, 32, 0xFFFFFF).setOrigin(0,0);
@@ -61,6 +67,27 @@ class Play extends Phaser.Scene {
         }
         this.scoreLeft = this.add.text(69, 54, this.p1Score, scoreConfig);
 
+        //FIRE text
+        let fireConfig = {
+            fontFamily: 'Courier',
+            fontSize: '28px',
+            backgroundColor: '#F3B141',
+            color: '#000000',
+            align: 'right',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 100
+        }
+        this.fireText = this.add.text(game.config.width/2, game.config.height, fireConfig).setOrigin(0, 0);
+
+        //Display Text 
+        //let centerX = game.config.width/2;
+        //let centerY = game.config.height;
+        //let textSpacer = 64;
+        //this.add.text(centerX, centerY, 'FIRE COMPUTER', fireConfig).setOrigin(0, 0);
+
         //game over flag
         this.gameOver = false;
 
@@ -74,6 +101,7 @@ class Play extends Phaser.Scene {
     }
 
     update(){
+
         //check key input for restart
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyF)){
             this.scene.restart(this.p1Score);
